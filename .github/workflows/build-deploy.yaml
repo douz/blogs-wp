@@ -33,7 +33,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_REGISTRY_USERNAME }}/blogs-wp
           tags: |
-            type=sha,enable=true,format=long,prefix=''
+            type=sha,enable=true,format=long,prefix=,suffix=
             type=raw,enable=true,value=latest
       
       - name: Set up Docker Buildx
