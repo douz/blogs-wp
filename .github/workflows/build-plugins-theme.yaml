@@ -1,0 +1,21 @@
+name: Build plugins and theme
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  build-plugins-and-theme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Build plugins and theme
+        run: ./ci-scripts/build-site.sh
+        shell: bash

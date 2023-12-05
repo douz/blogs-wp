@@ -1,0 +1,48 @@
+{
+  "name": "douz/wp",
+  "description": "Douz - Personal Blog",
+  "authors": [
+    {
+      "name": "Douglas Barahona",
+      "email": "douglas.barahona@me.com"
+    }
+  ],
+  "repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    },
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "require": {
+		"wpackagist-plugin/stream": "3.10.0",
+    "wpackagist-plugin/redis-cache": "2.5.0",
+    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-plugin/code-syntax-block": "3.1.1"
+	},
+  "extra": {
+		"installer-paths": {
+			"themes/{$name}": [
+				"type:wordpress-theme"
+			],
+			"plugins/{$name}": [
+				"type:wordpress-plugin"
+			],
+			"mu-plugins/{$name}": [
+				"type:wordpress-muplugin"
+			]
+		}
+	},
+  "scripts": {
+		"post-autoload-dump": [
+			"cp ./plugins/redis-cache/includes/object-cache.php ./object-cache.php"
+		]
+	}
+}

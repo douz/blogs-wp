@@ -1,0 +1,90 @@
+name: Build and Deploy WordPress Blog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-image:
+    environment:
+      name: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Build plugins and theme
+        run: ./ci-scripts/build-site.sh
+        shell: bash
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_REGISTRY_USERNAME }}/blogs-wp
+          tags: |
+            type=sha,enable=true,format=long
+            type=raw,enable=true,value=latest
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+
+  deploy-to-k8s:
+    needs: build-and-push-image
+    environment:
+      name: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Create kube config
+        run: |
+          mkdir -p $HOME/.kube/
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Install helm
+        run: |
+          curl -LO https://get.helm.sh/helm-v3.13.2-linux-amd64.tar.gz
+          tar -zxvf helm-v3.13.2-linux-amd64.tar.gz
+          mv linux-amd64/helm /usr/local/bin/helm
+          helm version
+
+      - name: Install WordPress helm repo
+        run: helm repo add 10up https://repos.10upmanaged.com/wordpress
+        
+      - name: Update WordPress helm repo
+        run: helm repo update
+
+      - name: Replace sensitive data in helm values file
+        run: |
+          sed -i "s/__DB_PASS__/${{ secrets.WP_DB_PASS }}/g" .kube/wp-production-values.yaml || true
+          sed -i "s/__REDIS_PASS__/${{ secrets.WP_REDIS_PASS }}/g" .kube/wp-production-values.yaml || true
+          sed -i "s/__S3_UPLOADS_BUCKET__/${{ secrets.WP_S3_UPLOADS_BUCKET }}/g" .kube/wp-production-values.yaml || true
+          sed -i "s/__S3_UPLOADS_KEY__/${{ secrets.WP_S3_UPLOADS_KEY }}/g" .kube/wp-production-values.yaml || true
+          sed -i "s/__S3_UPLOADS_SECRET__/${{ secrets.WP_S3_UPLOADS_SECRET }}/g" .kube/wp-production-values.yaml || true
+
+      - name: Deploy to K8S
+        run: helm upgrade --install douz-blogs-wp 10up/wordpress -f .kube/wp-production-values.yaml --set wordpress.image.tag=${{ github.sha }} -n wordpress
