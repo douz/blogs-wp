@@ -27,7 +27,8 @@
     "wpackagist-plugin/redis-cache": "2.5.0",
     "wpackagist-plugin/wordpress-importer": "0.8.1",
     "wpackagist-plugin/code-syntax-block": "3.1.1",
-    "wpackagist-plugin/wpforms-lite":"1.8.5.2"
+    "wpackagist-plugin/wpforms-lite":"1.8.5.2",
+    "wpackagist-plugin/wp-mail-smtp":"3.10.0"
 	},
   "extra": {
 		"installer-paths": {
