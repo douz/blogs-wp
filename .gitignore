@@ -8,16 +8,8 @@ themes/raft/
 
 # Plugins managed with Composer.  Delete this section once all are managed by composer
 # and convert to ignoring all of wp-content/plugins and excluding custom plugins
-wp-content/plugins/stream/
-plugins/stream/
-wp-content/plugins/s3-uploads/
-plugins/s3-uploads/
-wp-content/plugins/redis-cache/
-plugins/redis-cache/
-wp-content/plugins/code-syntax-block/
-plugins/code-syntax-block/
-wp-content/plugins/wordpress-importer/
-plugins/wordpress-importer/
+wp-content/plugins/
+plugins/
 
 # Dev-only
 .DS_Store
