@@ -7,8 +7,7 @@ set -x
 set -euo pipefail
 
 # Set variables
-WORDPRESS_VERSION="6.4.1"
-RAFT_THEME_VERSION="1.0.6"
+WORDPRESS_VERSION="6.4.2"
 S3_UPLOADS_VERSION="3.0.7"
 
 # Create file structure
@@ -24,13 +23,6 @@ if [ ! -d plugins/s3-uploads ]; then
   curl -OL https://github.com/humanmade/S3-Uploads/releases/download/${S3_UPLOADS_VERSION}/manual-install.zip
   unzip manual-install.zip -d plugins/s3-uploads
   rm -f manual-install.zip
-fi
-
-# Install Raft Theme
-if [ ! -d themes/raft ]; then
-  curl -OL https://downloads.wordpress.org/theme/raft.${RAFT_THEME_VERSION}.zip
-  unzip raft.${RAFT_THEME_VERSION}.zip -d themes
-  rm -f raft.${RAFT_THEME_VERSION}.zip
 fi
 
 # Download WordPress
