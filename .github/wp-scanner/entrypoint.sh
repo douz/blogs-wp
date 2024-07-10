@@ -54,9 +54,6 @@ function virus_scan {
 
 # Function to install and configure WordPress
 function setup_wordpress {
-  # Start MariaDB
-  mariadb
-
   # Install composer dependencies
   if [ "${INPUT_COMPOSER_BUILD}" = "true" ]; then
     composer install --no-dev
@@ -69,21 +66,21 @@ function setup_wordpress {
   rm -rf ./wordpress/wp-content/themes
   rm -rf ./wordpress/wp-content/plugins
   rm -rf ./wordpress/wp-content/db.php
-  rsync -ravxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress --exclude=wp-config.php
+  rsync -ravxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress --exclude=wp-config.php --exclude=.git*
 
   # Install WordPress
   pushd wordpress
-  wp config create --dbname=wordpress --dbuser=root --dbpass='' --dbhost=127.0.0.1
-  wp core install --url=10upvulnerabilitytest.net --title='WordPress Vulnerability Test' --admin_user=admin --admin_password=password --admin_email=10upvulnerabilitytest@example.net
+  wp --allow-root config create --dbname=wordpress --dbuser=root --dbpass='' --dbhost=127.0.0.1
+  wp --allow-root core install --url=10upvulnerabilitytest.net --title='WordPress Vulnerability Test' --admin_user=admin --admin_password=password --admin_email=10upvulnerabilitytest@example.net
   popd
 }
 
 # function to execute WordPress vulnerability scan
 function wp_vuln_scan {
   # Install and configure wpcli-vulnerability-scanner package
-  wp package install 10up/wpcli-vulnerability-scanner:dev-stable
+  wp --allow-root package install 10up/wpcli-vulnerability-scanner:dev-stable
   pushd wordpress
-  wp config set VULN_API_PROVIDER "${INPUT_VULN_API_PROVIDER}"
+  wp --allow-root config set VULN_API_PROVIDER "${INPUT_VULN_API_PROVIDER}"
   wp config set VULN_API_TOKEN "${INPUT_VULN_API_TOKEN}"
 
   # Run WordPress themes vulnerability scan

@@ -17,6 +17,7 @@ RUN apt-get update \
     ca-certificates \
     clamav \
     clamav-freshclam \
+    git \
     jq \
     lsb-release \
     mariadb-server \
@@ -52,4 +53,5 @@ RUN /usr/bin/freshclam
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+CMD ["mariadbd-safe"]
 ENTRYPOINT ["/entrypoint.sh"]
