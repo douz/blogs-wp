@@ -22,7 +22,7 @@ RUN apt-get update \
     lsb-release \
     mariadb-server \
     rsync \
-    svn \
+    subversion \
     wget \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/* 
