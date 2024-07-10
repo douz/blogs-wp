@@ -22,6 +22,7 @@ RUN apt-get update \
     lsb-release \
     mariadb-server \
     rsync \
+    svn \
     wget \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/* 
@@ -36,7 +37,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     php${PHP_VERSION}-xmlrpc \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-mbstring \
-    php${PHP_VERSION}-cli \
+    php${PHP_VERSION}-mysqlnd \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
 

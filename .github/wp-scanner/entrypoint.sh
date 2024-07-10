@@ -78,7 +78,7 @@ function setup_wordpress {
 # function to execute WordPress vulnerability scan
 function wp_vuln_scan {
   # Install and configure wpcli-vulnerability-scanner package
-  wp --allow-root package install 10up/wpcli-vulnerability-scanner:dev-stable
+  wp --allow-root package install 10up/wpcli-vulnerability-scanner:dev-trunk
   pushd wordpress
   wp --allow-root config set VULN_API_PROVIDER "${INPUT_VULN_API_PROVIDER}"
   wp config set VULN_API_TOKEN "${INPUT_VULN_API_TOKEN}"

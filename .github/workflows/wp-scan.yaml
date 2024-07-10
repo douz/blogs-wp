@@ -22,4 +22,5 @@ jobs:
           vuln_api_provider: 'wordfence'
           content_dir: './'
           wp_core_version: '6.4.3'
+          phpsyntax_enable_debug: 'true'
           composer_build: 'true'
