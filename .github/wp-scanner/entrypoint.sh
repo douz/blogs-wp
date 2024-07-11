@@ -36,6 +36,11 @@ function php_syntax_check {
   else
     shell_green "The PHP syntax check finished without errors"
   fi
+
+  # If no_fail input is set to true, exit without failure even if there are errors
+  if [ "${INPUT_NO_FAIL}" = "true" ]; then
+    exit 0
+  fi
 }
 
 # Function to perform virus scan
@@ -50,6 +55,11 @@ function virus_scan {
     shell_red "**** INFECTED FILE(S) FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   else
     shell_green "Clean - No infected files found"
+  fi
+
+  # If no_fail input is set to true, exit without failure even if there are errors
+  if [ "${INPUT_NO_FAIL}" = "true" ]; then
+    exit 0
   fi
 }
 
@@ -77,9 +87,9 @@ function setup_wordpress {
   fi
 
   # Download WordPress core
-  curl -O https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz
-  tar -xzf wordpress-${WORDPRESS_VERSION}.tar.gz
-  rm -rf wordpress-${WORDPRESS_VERSION}.tar.gz
+  curl -O https://wordpress.org/wordpress-"${WORDPRESS_VERSION}".tar.gz
+  tar -xzf wordpress-"${WORDPRESS_VERSION}".tar.gz
+  rm -rf wordpress-"${WORDPRESS_VERSION}".tar.gz
   rm -rf ./wordpress/wp-content/*
   rsync -raxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress \
     --exclude=wp-config.php \
@@ -107,20 +117,29 @@ function wp_vuln_scan {
 
   # Run WordPress themes vulnerability scan
   shell_green "##### Starting WordPress Themes vulnerability scan #####"
-  if ! wp --allow-root vuln theme-status --reference --format=yaml; then
-    shell_red "**** THEME VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
-  else
+  THEMES_SCAN_OUTPUT=$(wp --allow-root vuln theme-status | grep -v status | grep -v 'No vulnerabilities reported for this version of')
+  if [ -z "${THEMES_SCAN_OUTPUT}" ]; then
     shell_green "No theme vulnerabilities found"
+  else
+    wp --allow-root vuln theme-status --reference --format=yaml
+    shell_red "**** THEME VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   fi
 
   # Run WordPress Plugins vulnerability scan
   shell_green "##### Starting WordPress Plugins vulnerability scan #####"
-  if ! wp --allow-root vuln plugin-status --reference --format=yaml; then
-    shell_red "**** PLUGIN VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
-  else
+  PLUGINS_SCAN_OUTPUT=$(wp --allow-root vuln plugin-status | grep -v status | grep -v 'No vulnerabilities reported for this version of')
+  if [ -z "${PLUGINS_SCAN_OUTPUT}" ]; then
     shell_green "No plugin vulnerabilities found"
+  else
+    wp --allow-root vuln plugin-status --reference --format=yaml
+    shell_red "**** PLUGIN VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   fi
   popd
+
+  # If no_fail input is set to true, exit without failure even if there are errors
+  if [ "${INPUT_NO_FAIL}" = "true" ]; then
+    exit 0
+  fi
 }
 
 # Execute PHP syntax check if not disabled
@@ -131,6 +150,3 @@ function wp_vuln_scan {
 
 # Execute WordPress vulnerability scan if not disabled
 [ "${INPUT_DISABLE_WP_VULN_SCAN}" != "true" ] && setup_mariadb && setup_wordpress && wp_vuln_scan
-
-# Exit without failure even if there are errors
-[ "${INPUT_NO_FAIL}" = "true" ] && exit 0
