@@ -10,7 +10,7 @@ SHELL_GREEN="\033[0;32m"
 # Set wp-content directory location
 WP_CONTENT_DIR="${INPUT_CONTENT_DIR:-$GITHUB_WORKSPACE}"
 # Set PHP syntax check variables
-OUTPUT_REDIRECT=""
+OUTPUT_REDIRECT="1>/dev/null"
 FAILED_MESSAGE_POSTFIX=""
 # Set WordPress core version
 WORDPRESS_VERSION=${INPUT_WP_CORE_VERSION:-$(curl -s "https://api.wordpress.org/core/version-check/1.7/" | jq -r '[.offers[]|select(.response=="upgrade")][0].version')}
@@ -27,7 +27,7 @@ function shell_green {
 
 # Function to perform PHP syntax check
 function php_syntax_check {
-  [ "${INPUT_PHPSYNTAX_ENABLE_DEBUG}" = "true" ] && OUTPUT_REDIRECT="1>/dev/null" && FAILED_MESSAGE_POSTFIX=" - set the phpsyntax_enable_debug input to true and re-run the scanner to find out all errors"
+  [ "${INPUT_PHPSYNTAX_ENABLE_DEBUG}" = "true" ] && OUTPUT_REDIRECT="" && FAILED_MESSAGE_POSTFIX=" - set the phpsyntax_enable_debug input to true and re-run the scanner to find out all errors"
   shell_green "##### Starting PHP syntax check #####"
 
   # The -P10 option specifies the number of parallel processes (In constrainted CPUs will take approx time for 1 available cpu)
