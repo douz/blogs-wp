@@ -117,7 +117,7 @@ function wp_vuln_scan {
 
   # Run WordPress themes vulnerability scan
   shell_green "##### Starting WordPress Themes vulnerability scan #####"
-  THEMES_SCAN_OUTPUT=$(wp --allow-root vuln theme-status | grep -v status | grep -v 'No vulnerabilities reported for this version of')
+  THEMES_SCAN_OUTPUT=$(wp --allow-root vuln theme-status | grep -v 'Vulnerability API Provider' | grep -v 'status' | grep -v 'No vulnerabilities reported for this version of')
   if [ -z "${THEMES_SCAN_OUTPUT}" ]; then
     shell_green "No theme vulnerabilities found"
   else
@@ -127,7 +127,7 @@ function wp_vuln_scan {
 
   # Run WordPress Plugins vulnerability scan
   shell_green "##### Starting WordPress Plugins vulnerability scan #####"
-  PLUGINS_SCAN_OUTPUT=$(wp --allow-root vuln plugin-status | grep -v status | grep -v 'No vulnerabilities reported for this version of')
+  PLUGINS_SCAN_OUTPUT=$(wp --allow-root vuln plugin-status | grep -v 'Vulnerability API Provider' | grep -v 'status' | grep -v 'No vulnerabilities reported for this version of')
   if [ -z "${PLUGINS_SCAN_OUTPUT}" ]; then
     shell_green "No plugin vulnerabilities found"
   else
