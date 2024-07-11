@@ -85,6 +85,7 @@ function setup_wordpress {
   
   # Install composer dependencies
   if [ "${INPUT_COMPOSER_BUILD}" = "true" ]; then
+    shell_green "Installing composer dependencies"
     composer install --no-dev
   fi
 
