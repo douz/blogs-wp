@@ -1,4 +1,4 @@
-name: PHP Syntax Check, virus scan, and WP Plugin & Theme vulnerability scan
+name: "PHP Syntax Check, virus scan, and WP Plugin & Theme vulnerability scan"
 
 on:
   push:

@@ -53,10 +53,20 @@ function virus_scan {
   fi
 }
 
-# Function to install and configure WordPress
-function setup_wordpress {
+# Function to setup MariaDB
+function setup_mariadb {
   # Start MariaDB
   /etc/init.d/mariadb start
+
+  # Set a password for the root user
+  mysqladmin -u root password password
+
+  # Create WordPress database
+  mysql -u root -e "CREATE DATABASE wordpress;"
+}
+
+# Function to install and configure WordPress
+function setup_wordpress {
 
   # Install composer dependencies
   if [ "${INPUT_COMPOSER_BUILD}" = "true" ]; then
@@ -74,8 +84,8 @@ function setup_wordpress {
 
   # Install WordPress
   pushd wordpress
-  wp --allow-root config create --dbname=wordpress --dbuser=root --dbpass='' --dbhost=127.0.0.1
-  wp --allow-root core install --url=10upvulnerabilitytest.net --title='WordPress Vulnerability Test' --admin_user=admin --admin_password=password --admin_email=10upvulnerabilitytest@example.net
+  wp --allow-root config create --dbname=wordpress --dbuser=root --dbpass=password --dbhost=127.0.0.1
+  wp --allow-root core install --url=10upvulnerabilitytest.net --title='WordPress Vulnerability Test' --admin_user=admin --admin_password=password --admin_email=10upvulnerabilitytest@example.net --skip-email
   popd
 }
 
@@ -112,7 +122,7 @@ function wp_vuln_scan {
 [ "${INPUT_DISABLE_VIRUS_SCAN}" != "true" ] && virus_scan
 
 # Execute WordPress vulnerability scan if not disabled
-[ "${INPUT_DISABLE_WP_VULN_SCAN}" != "true" ] && setup_wordpress && wp_vuln_scan
+[ "${INPUT_DISABLE_WP_VULN_SCAN}" != "true" ] && setup_mariadb && setup_wordpress && wp_vuln_scan
 
 # Exit without failure even if there are errors
 [ "${INPUT_NO_FAIL}" = "true" ] && exit 0
