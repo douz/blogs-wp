@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -eo pipefail
+set -x
 
 # Define shell colors
 SHELL_END="\033[0m"
