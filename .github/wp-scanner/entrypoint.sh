@@ -123,7 +123,12 @@ function wp_vuln_scan {
   else
     wp --allow-root vuln theme-status --reference --format=yaml
     shell_red "**** THEME VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
-    return 1
+    # If no_fail input is set to true, exit without failure even if there are errors
+    if [ "${INPUT_NO_FAIL}" = "true" ]; then
+      return 0
+    else
+      return 1
+    fi
   fi
 
   # Run WordPress Plugins vulnerability scan
@@ -134,14 +139,14 @@ function wp_vuln_scan {
   else
     wp --allow-root vuln plugin-status --reference --format=yaml
     shell_red "**** PLUGIN VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
-    return 1
+    # If no_fail input is set to true, exit without failure even if there are errors
+    if [ "${INPUT_NO_FAIL}" = "true" ]; then
+      return 0
+    else
+      return 1
+    fi
   fi
   popd
-
-  # If no_fail input is set to true, exit without failure even if there are errors
-  if [ "${INPUT_NO_FAIL}" = "true" ]; then
-    return 0
-  fi
 }
 
 # Execute PHP syntax check if not disabled
