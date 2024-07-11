@@ -33,13 +33,14 @@ function php_syntax_check {
   # The -P10 option specifies the number of parallel processes (In constrainted CPUs will take approx time for 1 available cpu)
   if ! find "${WP_CONTENT_DIR}" -type f -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -P10 -I {} bash -c "php -l {} ${OUTPUT_REDIRECT}"; then
     shell_red "The PHP syntax check finished with errors${FAILED_MESSAGE_POSTFIX}"
+    # If no_fail input is set to true, exit without failure even if there are errors
+    if [ "${INPUT_NO_FAIL}" = "true" ]; then
+      return 0
+    else
+      return 1
+    fi
   else
     shell_green "The PHP syntax check finished without errors"
-  fi
-
-  # If no_fail input is set to true, exit without failure even if there are errors
-  if [ "${INPUT_NO_FAIL}" = "true" ]; then
-    return 0
   fi
 }
 
@@ -53,13 +54,14 @@ function virus_scan {
   shell_green "##### Starting virus scan #####"
   if ! clamscan --exclude-dir ./.composer-cache --exclude-dir ./node_modules_cache -riz "${WP_CONTENT_DIR}"; then
     shell_red "**** INFECTED FILE(S) FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
+    # If no_fail input is set to true, exit without failure even if there are errors
+    if [ "${INPUT_NO_FAIL}" = "true" ]; then
+      return 0
+    else
+      return 1
+    fi
   else
     shell_green "Clean - No infected files found"
-  fi
-
-  # If no_fail input is set to true, exit without failure even if there are errors
-  if [ "${INPUT_NO_FAIL}" = "true" ]; then
-    return 0
   fi
 }
 
