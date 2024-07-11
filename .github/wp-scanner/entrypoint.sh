@@ -109,6 +109,12 @@ function setup_wordpress {
 
 # function to execute WordPress vulnerability scan
 function wp_vuln_scan {
+  # Check if the vuln_api_token is present for wpscan and patchstack providers
+  if [ "${INPUT_VULN_API_PROVIDER}" != 'wordfence' ] && [ -z "${INPUT_VULN_API_TOKEN}" ]; then
+    shell_red "vuln_api_token input is required for ${INPUT_VULN_API_PROVIDER} provider. Please provide the token and re-run the scanner"
+    exit 1
+  fi
+
   echo "Setting up WordPress vulnerability scan"
 
   # Install and configure wpcli-vulnerability-scanner package
