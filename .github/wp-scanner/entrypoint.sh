@@ -27,11 +27,11 @@ function shell_green {
 
 # Function to perform PHP syntax check
 function php_syntax_check {
-  [ "${INPUT_PHPSYNTAX_ENABLE_DEBUG}" = "true" ] && OUTPUT_REDIRECT=1>/dev/null && FAILED_MESSAGE_POSTFIX=" - set the phpsyntax_enable_debug input to true and re-run the scanner to find out all errors"
+  [ "${INPUT_PHPSYNTAX_ENABLE_DEBUG}" = "true" ] && OUTPUT_REDIRECT="1>/dev/null" && FAILED_MESSAGE_POSTFIX=" - set the phpsyntax_enable_debug input to true and re-run the scanner to find out all errors"
   shell_green "##### Starting PHP syntax check #####"
 
   # The -P10 option specifies the number of parallel processes (In constrainted CPUs will take approx time for 1 available cpu)
-  if ! find "${WP_CONTENT_DIR}" -type f -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 -P10 php -l "${OUTPUT_REDIRECT}"; then
+  if ! find "${WP_CONTENT_DIR}" -type f -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -P10 -I {} bash -c "php -l {} ${OUTPUT_REDIRECT}"; then
     shell_red "The PHP syntax check finished with errors${FAILED_MESSAGE_POSTFIX}"
   else
     shell_green "The PHP syntax check finished without errors"
@@ -56,8 +56,8 @@ function virus_scan {
 # Function to install and configure WordPress
 function setup_wordpress {
   # Start MariaDB
-  /etc/init.d/mysql start
-  
+  /etc/init.d/mariadb start
+
   # Install composer dependencies
   if [ "${INPUT_COMPOSER_BUILD}" = "true" ]; then
     composer install --no-dev
