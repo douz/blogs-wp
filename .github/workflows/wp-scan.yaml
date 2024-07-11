@@ -7,7 +7,7 @@ on:
       - '!main'
 
 jobs:
-  build-plugins-and-theme:
+  wp-scanner:
     runs-on: ubuntu-latest
 
     steps:

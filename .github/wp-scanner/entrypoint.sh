@@ -107,7 +107,7 @@ function wp_vuln_scan {
 
   # Run WordPress themes vulnerability scan
   shell_green "##### Starting WordPress Themes vulnerability scan #####"
-  if ! wp --allow-root vuln theme-status; then
+  if ! wp --allow-root vuln theme-status --reference --format=yaml; then
     shell_red "**** THEME VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   else
     shell_green "No theme vulnerabilities found"
@@ -115,7 +115,7 @@ function wp_vuln_scan {
 
   # Run WordPress Plugins vulnerability scan
   shell_green "##### Starting WordPress Plugins vulnerability scan #####"
-  if ! wp --allow-root vuln plugin-status; then
+  if ! wp --allow-root vuln plugin-status --reference --format=yaml; then
     shell_red "**** PLUGIN VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   else
     shell_green "No plugin vulnerabilities found"
