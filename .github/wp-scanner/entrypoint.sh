@@ -55,6 +55,8 @@ function virus_scan {
 
 # Function to setup MariaDB
 function setup_mariadb {
+  echo "Setting up MariaDB"
+  
   # Start MariaDB
   /etc/init.d/mariadb start
 
@@ -67,7 +69,8 @@ function setup_mariadb {
 
 # Function to install and configure WordPress
 function setup_wordpress {
-
+  echo "Setting up WordPress"
+  
   # Install composer dependencies
   if [ "${INPUT_COMPOSER_BUILD}" = "true" ]; then
     composer install --no-dev
@@ -91,15 +94,17 @@ function setup_wordpress {
 
 # function to execute WordPress vulnerability scan
 function wp_vuln_scan {
+  echo "Setting up WordPress vulnerability scan"
+
   # Install and configure wpcli-vulnerability-scanner package
   wp --allow-root package install 10up/wpcli-vulnerability-scanner:dev-trunk
   pushd wordpress
   wp --allow-root config set VULN_API_PROVIDER "${INPUT_VULN_API_PROVIDER}"
-  wp config set VULN_API_TOKEN "${INPUT_VULN_API_TOKEN}"
+  wp --allow-root config set VULN_API_TOKEN "${INPUT_VULN_API_TOKEN}"
 
   # Run WordPress themes vulnerability scan
   shell_green "##### Starting WordPress Themes vulnerability scan #####"
-  if ! wp vuln theme-status; then
+  if ! wp --allow-root vuln theme-status; then
     shell_red "**** THEME VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   else
     shell_green "No theme vulnerabilities found"
@@ -107,7 +112,7 @@ function wp_vuln_scan {
 
   # Run WordPress Plugins vulnerability scan
   shell_green "##### Starting WordPress Plugins vulnerability scan #####"
-  if ! wp vuln plugin-status; then
+  if ! wp --allow-root vuln plugin-status; then
     shell_red "**** PLUGIN VULNERABILITIES FOUND!!! **** PLEASE SEE REPORT ABOVE ****"
   else
     shell_green "No plugin vulnerabilities found"
