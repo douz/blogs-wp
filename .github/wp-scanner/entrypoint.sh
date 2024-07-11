@@ -80,10 +80,13 @@ function setup_wordpress {
   curl -O https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz
   tar -xzf wordpress-${WORDPRESS_VERSION}.tar.gz
   rm -rf wordpress-${WORDPRESS_VERSION}.tar.gz
-  rm -rf ./wordpress/wp-content/themes
-  rm -rf ./wordpress/wp-content/plugins
-  rm -rf ./wordpress/wp-content/db.php
-  rsync -raxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress --exclude=wp-config.php --exclude=.git*
+  rm -rf ./wordpress/wp-content/*
+  rsync -raxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress \
+    --exclude=wp-config.php \
+    --exclude=.git* \
+    --exclude=db.php \
+    --exclude=object-cache.php \
+    --exclude=advanced-cache.php
 
   # Install WordPress
   pushd wordpress
