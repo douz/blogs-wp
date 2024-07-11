@@ -32,12 +32,24 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
   && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list \
   && apt update \
   && apt install -y \
-    php${PHP_VERSION} \
-    php${PHP_VERSION}-xml \
-    php${PHP_VERSION}-xmlrpc \
-    php${PHP_VERSION}-cli \
-    php${PHP_VERSION}-mbstring \
-    php${PHP_VERSION}-mysqlnd \
+  php${PHP_VERSION} \
+  php${PHP_VERSION}-bcmath \
+  php${PHP_VERSION}-bz2 \
+  php${PHP_VERSION}-cli \
+  php${PHP_VERSION}-curl \
+  php${PHP_VERSION}-gd \
+  php${PHP_VERSION}-imagick \
+  php${PHP_VERSION}-intl \
+  php${PHP_VERSION}-mbstring \
+  php${PHP_VERSION}-memcache \
+  php${PHP_VERSION}-memcached \
+  php${PHP_VERSION}-mysql \
+  php${PHP_VERSION}-opcache \
+  php${PHP_VERSION}-redis \
+  php${PHP_VERSION}-soap \
+  php${PHP_VERSION}-xml \
+  php${PHP_VERSION}-xmlrpc \
+  php${PHP_VERSION}-zip \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
 

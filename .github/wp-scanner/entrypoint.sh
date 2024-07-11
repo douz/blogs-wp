@@ -31,7 +31,7 @@ function php_syntax_check {
   shell_green "##### Starting PHP syntax check #####"
 
   # The -P10 option specifies the number of parallel processes (In constrainted CPUs will take approx time for 1 available cpu)
-  if ! find "${WP_CONTENT_DIR}" -type f -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 -P10 php -l "${OUTPUT_REDIRECT}"; then
+  if ! find "${WP_CONTENT_DIR}" -type f -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 -P10 php -l ${OUTPUT_REDIRECT}; then
     shell_red "The PHP syntax check finished with errors${FAILED_MESSAGE_POSTFIX}"
   else
     shell_green "The PHP syntax check finished without errors"
@@ -67,7 +67,7 @@ function setup_wordpress {
   rm -rf ./wordpress/wp-content/themes
   rm -rf ./wordpress/wp-content/plugins
   rm -rf ./wordpress/wp-content/db.php
-  rsync -ravxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress --exclude=wp-config.php --exclude=.git*
+  rsync -raxc "${WP_CONTENT_DIR}" ./wordpress/wp-content/ --exclude=wordpress --exclude=wp-config.php --exclude=.git*
 
   # Install WordPress
   pushd wordpress
