@@ -20,10 +20,8 @@ jobs:
         uses: ./.github/wp-scanner
         with:
           vuln_api_provider: 'wpscan'
-          vuln_api_token: ${{ secrets.WP_SCAN_TOKEN }}
           content_dir: './'
           wp_core_version: '6.4.3'
           phpsyntax_enable_debug: 'true'
-          disable_virus_scan: 'true'
           composer_build: 'true'
           no_fail: 'true'
