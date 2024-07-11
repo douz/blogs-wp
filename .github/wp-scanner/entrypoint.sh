@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
+set -uo pipefail
 set -x
 
 # Define shell colors
