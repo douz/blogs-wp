@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -o pipefail
-set -x
 
 # Define shell colors
 SHELL_END="\033[0m"
@@ -47,7 +46,7 @@ function php_syntax_check {
 # Function to perform virus scan
 function virus_scan {
   if [ "${INPUT_VIRUS_SCAN_UPDATE}" = "true" ]; then
-    echo "Updating ClamAV definitions database"
+    shell_green "Updating ClamAV definitions database"
     freshclam --verbose
   fi
 
