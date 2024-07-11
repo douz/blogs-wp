@@ -23,6 +23,7 @@ RUN apt-get update \
     mariadb-server \
     rsync \
     subversion \
+    unzip \
     wget \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/* 
@@ -66,5 +67,4 @@ RUN /usr/bin/freshclam
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-CMD ["mariadbd-safe"]
 ENTRYPOINT ["/entrypoint.sh"]
