@@ -19,6 +19,9 @@ jobs:
       - name: WordPress Scanner
         uses: 10up/wp-scanner-action@v1
         with:
+          repository: 10up/wp-scanner-action
+          ref: refs/tags/v1
+          token: ${{ secrets.GH_TOKEN }}
           vuln_api_provider: 'wordfence'
           content_dir: './'
           wp_core_version: '6.4.3'
