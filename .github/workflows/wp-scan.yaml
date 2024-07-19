@@ -1,4 +1,4 @@
-name: "PHP Syntax Check, virus scan, and WP Plugin & Theme vulnerability scan"
+name: "PHP Syntax Check, virus scanning, and WP Plugin & Theme vulnerability scanning"
 
 on:
   push:
@@ -17,12 +17,9 @@ jobs:
           ref: ${{ github.ref }}
       
       - name: WordPress Scanner
-        uses: ./.github/wp-scanner
+        uses: 10up/wp-scanner-action@v1
         with:
-          vuln_api_provider: 'wpscan'
-          vuln_api_token: ${{ secrets.WP_SCAN_TOKEN }}
+          vuln_api_provider: 'wordfence'
           content_dir: './'
           wp_core_version: '6.4.3'
-          phpsyntax_enable_debug: 'true'
           composer_build: 'true'
-          no_fail: 'true'
