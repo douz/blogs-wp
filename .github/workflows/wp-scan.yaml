@@ -25,7 +25,7 @@ jobs:
           path: .github/wp-scanner-action
       
       - name: WordPress Scanner
-        uses: .github/wp-scanner-action
+        uses: ./.github/wp-scanner-action
         with:
           vuln_api_provider: 'wordfence'
           content_dir: './'
