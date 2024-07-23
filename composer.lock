@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a32cbeb835077e784fe3c2279096c1d",
+    "content-hash": "9b862cf3ce7d51056d9fdec79c2eefee",
     "packages": [
         {
             "name": "composer/installers",
@@ -187,24 +187,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/google-site-kit/"
-        },
-        {
-            "name": "wpackagist-plugin/patchstack",
-            "version": "2.2.13",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/patchstack/",
-                "reference": "tags/2.2.13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/patchstack.2.2.13.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/patchstack/"
         },
         {
             "name": "wpackagist-plugin/redis-cache",
