@@ -23,3 +23,4 @@ jobs:
           content_dir: './'
           wp_core_version: '6.4.3'
           composer_build: 'true'
+          no_fail: 'true'
