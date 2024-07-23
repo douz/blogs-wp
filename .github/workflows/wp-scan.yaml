@@ -1,0 +1,27 @@
+name: "PHP Syntax Check, virus scanning, and WP Plugin & Theme vulnerability scanning"
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  wp-scanner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: WordPress Scanner
+        uses: 10up/wp-scanner-action@v1
+        with:
+          vuln_api_provider: 'patchstack'
+          vuln_api_token: ${{ secrets.WP_PATCHSTACK_TOKEN }}
+          content_dir: './'
+          wp_core_version: '6.4.3'
+          composer_build: 'true'
+          no_fail: 'true'
