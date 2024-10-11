@@ -6,7 +6,25 @@ on:
       - main
 
 jobs:
+  wp-scanner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: WordPress Scanner
+        uses: 10up/wp-scanner-action@v1
+        with:
+          vuln_api_provider: 'wordfence'
+          content_dir: './'
+          wp_core_version: '6.6.2'
+          composer_build: 'true'
+
   build-and-push-image:
+    needs: wp-scanner
     environment:
       name: production
     runs-on: ubuntu-latest

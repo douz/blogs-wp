@@ -7,7 +7,7 @@ set -x
 set -euo pipefail
 
 # Set variables
-WORDPRESS_VERSION="6.6"
+WORDPRESS_VERSION="6.6.2"
 S3_UPLOADS_VERSION="3.0.7"
 
 # Create file structure
