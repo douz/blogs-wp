@@ -20,7 +20,7 @@ jobs:
         with:
           vuln_api_provider: 'wordfence'
           content_dir: './'
-          wp_core_version: '6.6.2'
+          wp_core_version: '6.7.2'
           composer_build: 'true'
 
   build-and-push-image:
@@ -44,7 +44,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GH_TOKEN }}
 
       - name: Docker meta
         id: meta
