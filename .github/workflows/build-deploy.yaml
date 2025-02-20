@@ -104,7 +104,7 @@ jobs:
           sed -i "s/__S3_UPLOADS_BUCKET__/${{ secrets.WP_S3_UPLOADS_BUCKET }}/g" .kube/wp-production-values.yaml || true
           sed -i "s/__S3_UPLOADS_KEY__/${{ secrets.WP_S3_UPLOADS_KEY }}/g" .kube/wp-production-values.yaml || true
           sed -i "s/__S3_UPLOADS_SECRET__/${{ secrets.WP_S3_UPLOADS_SECRET }}/g" .kube/wp-production-values.yaml || true
-          sed -i "s/__SLACK_WEBHOOK__/${{ secrets.SLACK_WEBHOOK }}/g" .kube/wp-production-value
+          sed -i "s/__SLACK_WEBHOOK__/${{ secrets.SLACK_WEBHOOK }}/g" .kube/wp-production-values.yaml || true
 
       - name: Deploy to K8S
         run: helm upgrade --install douz-blogs-wp 10up/wordpress -f .kube/wp-production-values.yaml --set wordpress.image.tag=${{ github.sha }} -n wordpress
