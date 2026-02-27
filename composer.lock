@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ae88a0a283f8b8b9f902a2975406d08",
+    "content-hash": "2c0377db5c97ad65b0f358f97bca5ee0",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,34 +153,16 @@
             "time": "2024-06-24T20:46:46+00:00"
         },
         {
-            "name": "wpackagist-plugin/code-syntax-block",
-            "version": "3.2.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/code-syntax-block/",
-                "reference": "tags/3.2.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/code-syntax-block.3.2.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/code-syntax-block/"
-        },
-        {
             "name": "wpackagist-plugin/google-site-kit",
-            "version": "1.146.0",
+            "version": "1.173.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/google-site-kit/",
-                "reference": "tags/1.146.0"
+                "reference": "tags/1.173.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-site-kit.1.146.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/google-site-kit.1.173.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -190,15 +172,15 @@
         },
         {
             "name": "wpackagist-plugin/redis-cache",
-            "version": "2.5.4",
+            "version": "2.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/2.5.4"
+                "reference": "tags/2.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.5.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -208,15 +190,15 @@
         },
         {
             "name": "wpackagist-plugin/stream",
-            "version": "4.1.1",
+            "version": "4.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.1.1"
+                "reference": "tags/4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.1.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.4.1.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -225,16 +207,34 @@
             "homepage": "https://wordpress.org/plugins/stream/"
         },
         {
-            "name": "wpackagist-plugin/wordpress-importer",
-            "version": "0.8.3",
+            "name": "wpackagist-plugin/syntaxhighlighter",
+            "version": "3.7.2",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.8.3"
+                "url": "https://plugins.svn.wordpress.org/syntaxhighlighter/",
+                "reference": "tags/3.7.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.8.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/syntaxhighlighter.3.7.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/syntaxhighlighter/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-importer",
+            "version": "0.9.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
+                "reference": "tags/0.9.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -244,15 +244,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "4.3.0",
+            "version": "4.7.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/4.3.0"
+                "reference": "tags/4.7.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.4.3.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.4.7.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -262,15 +262,15 @@
         },
         {
             "name": "wpackagist-plugin/wpforms-lite",
-            "version": "1.9.3.2",
+            "version": "1.9.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpforms-lite/",
-                "reference": "tags/1.9.3.2"
+                "reference": "tags/1.9.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpforms-lite.1.9.3.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpforms-lite.1.9.9.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -280,15 +280,15 @@
         },
         {
             "name": "wpackagist-theme/raft",
-            "version": "1.1.7",
+            "version": "1.1.10",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/raft/",
-                "reference": "1.1.7"
+                "reference": "1.1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/raft.1.1.7.zip"
+                "url": "https://downloads.wordpress.org/theme/raft.1.1.10.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
