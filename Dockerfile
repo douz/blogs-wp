@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.2-ubuntu
+ARG PHP_VERSION=8.3-ubuntu
 FROM 10up/wp-php-fpm:${PHP_VERSION}
 
 USER root

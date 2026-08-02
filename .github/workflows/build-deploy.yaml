@@ -20,7 +20,7 @@ jobs:
         with:
           vuln_api_provider: 'wordfence'
           content_dir: './'
-          wp_core_version: '6.9.1'
+          wp_core_version: '7.0.2'
           composer_build: 'true'
 
   build-and-push-image:

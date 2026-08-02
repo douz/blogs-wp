@@ -7,8 +7,7 @@ set -x
 set -euo pipefail
 
 # Set variables
-WORDPRESS_VERSION="6.9.1"
-S3_UPLOADS_VERSION="3.0.7"
+WORDPRESS_VERSION="7.0.2"
 
 # Create file structure
 mkdir -p plugins
@@ -16,14 +15,6 @@ mkdir -p themes
 
 # Install plugins
 composer install --no-dev -o
-
-## Install s3-uploads plugin
-if [ ! -d plugins/s3-uploads ]; then
-  mkdir -p plugins/s3-uploads
-  curl -OL https://github.com/humanmade/S3-Uploads/releases/download/${S3_UPLOADS_VERSION}/manual-install.zip
-  unzip manual-install.zip -d plugins/s3-uploads
-  rm -f manual-install.zip
-fi
 
 # Download WordPress
 curl -O https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz
