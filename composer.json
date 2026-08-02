@@ -18,17 +18,18 @@
       "composer/installers": true
     },
     "platform": {
-      "php": "8.2"
+      "php": "8.3"
     }
   },
   "require": {
-    "wpackagist-theme/raft":"1.1.10",
-		"wpackagist-plugin/stream": "4.1.2",
-    "wpackagist-plugin/redis-cache": "2.7.0",
+    "humanmade/s3-uploads": "3.0.13",
+    "wpackagist-theme/raft":"1.1.13",
+		"wpackagist-plugin/stream": "4.3.0",
+    "wpackagist-plugin/redis-cache": "2.8.0",
     "wpackagist-plugin/wordpress-importer": "0.9.5",
-    "wpackagist-plugin/wpforms-lite":"1.9.9.3",
-    "wpackagist-plugin/wp-mail-smtp":"4.7.1",
-    "wpackagist-plugin/google-site-kit":"1.173.0",
+    "wpackagist-plugin/wpforms-lite":"2.0.0.2",
+    "wpackagist-plugin/wp-mail-smtp":"4.9.0",
+    "wpackagist-plugin/google-site-kit":"1.184.0",
     "wpackagist-plugin/syntaxhighlighter": "3.7.2"
 	},
   "extra": {
