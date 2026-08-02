@@ -31,6 +31,8 @@ add_action( 'muplugins_loaded', __NAMESPACE__ . '\load_composer_dependencies' );
 function set_cloudflare_endpoint( $params ) {
 	$params['endpoint'] = 'https://43b858bd5a5da0cd1b0651745e770fff.r2.cloudflarestorage.com';
 	$params['use_path_style_endpoint'] = true;
+	$params['request_checksum_calculation'] = 'when_required';
+	$params['response_checksum_validation'] = 'when_required';
 	$params['debug'] = false; // Set to true if uploads are failing.
 	return $params;
 }
